@@ -18,6 +18,7 @@ namespace CGber
         [SerializeField] private GameObject _mainMenuGui;
         [SerializeField] private GameObject _leaveButton;
 
+        private static Dictionary<ulong, PlayerData> _clientData;
 
         private void Start()
         {
@@ -40,6 +41,9 @@ namespace CGber
         public void Host()
         {
             Debug.Log("This is HOST");
+            _clientData = new Dictionary<ulong, PlayerData>();
+            _clientData[NetworkManager.Singleton.LocalClientId] = new PlayerData(_nameInputField.text);
+
             NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
             NetworkManager.Singleton.StartHost();
         }
@@ -49,7 +53,15 @@ namespace CGber
         public void Client()
         {
             Debug.Log("This is Client");
-            NetworkManager.Singleton.NetworkConfig.ConnectionData = Encoding.ASCII.GetBytes(_keyInputField.text);
+            var payload = JsonUtility.ToJson(new ConnectionPayload()
+            {
+                connectKey = _keyInputField.text,
+                playerName = _nameInputField.text
+            });
+
+            byte[] playloadBytes = Encoding.ASCII.GetBytes(payload);
+
+            NetworkManager.Singleton.NetworkConfig.ConnectionData = playloadBytes;
             NetworkManager.Singleton.StartClient();
 
         }
@@ -83,6 +95,11 @@ namespace CGber
 
         private void HandleClientConnected(ulong clientId)
         {
+            if (NetworkManager.Singleton.IsServer)
+            {
+                _clientData.Remove(clientId);
+            }
+
             // Are we the client that is connecting?
             if (clientId == NetworkManager.Singleton.LocalClientId)
             {
@@ -103,10 +120,28 @@ namespace CGber
 
         private void ApprovalCheck(byte[] connectionData, ulong clientId, NetworkManager.ConnectionApprovedDelegate callback)
         {
-            string password = Encoding.ASCII.GetString(connectionData);
-            bool approveConnection = password == _keyInputField.text;
+
+            string payload = Encoding.ASCII.GetString(connectionData);
+            var connectionPayload = JsonUtility.FromJson<ConnectionPayload>(payload);
+
+            bool approveConnection = connectionPayload.connectKey == _keyInputField.text;
+
+            if (approveConnection)
+            {
+                _clientData[clientId] = new PlayerData(connectionPayload.playerName);
+            }
 
             callback(true, null, approveConnection, null, null);
+        }
+
+        public static PlayerData? GetPlayerData(ulong clientId)
+        {
+            if(_clientData.TryGetValue(clientId, out PlayerData playerData))
+            {
+                return playerData;
+            }
+
+            return null;
         }
     }
 }
