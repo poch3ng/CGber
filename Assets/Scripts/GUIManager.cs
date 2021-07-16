@@ -8,7 +8,7 @@ using System.Text;
 
 namespace CGber
 {
-    public class MenuManager : MonoBehaviour
+    public class GUIManager : MonoBehaviour
     {
 
         // InputField
@@ -26,6 +26,16 @@ namespace CGber
             NetworkManager.Singleton.OnClientConnectedCallback += HandleClientConnected;
             NetworkManager.Singleton.OnClientDisconnectCallback += HandleClientDisconnect;
 
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Debug.Log("esc");
+                _leaveButton.SetActive(!_leaveButton.activeSelf);
+            }
+            
         }
 
         private void OnDestroy()
@@ -78,6 +88,11 @@ namespace CGber
             {
                 NetworkManager.Singleton.StopClient();
             }
+            else
+            {
+                Debug.Log("Quit CGber");
+                Application.Quit();
+            }
 
             _mainMenuGui.SetActive(true);
             _leaveButton.SetActive(false);
@@ -104,7 +119,7 @@ namespace CGber
             if (clientId == NetworkManager.Singleton.LocalClientId)
             {
                 _mainMenuGui.SetActive(false);
-                _leaveButton.SetActive(true);
+                //_leaveButton.SetActive(true);
             }
         }
 
@@ -143,6 +158,7 @@ namespace CGber
 
             return null;
         }
+
     }
 }
 

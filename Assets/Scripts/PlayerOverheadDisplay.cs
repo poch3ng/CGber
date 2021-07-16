@@ -18,7 +18,7 @@ namespace CGber
         {
             if (!IsServer) { return; }
 
-            PlayerData? playerData = MenuManager.GetPlayerData(OwnerClientId);
+            PlayerData? playerData = GUIManager.GetPlayerData(OwnerClientId);
 
             if (playerData.HasValue)
             {
