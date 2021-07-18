@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.mlapi.contrib.transport.photon-realtime": {
+      "version": "https://github.com/Unity-Technologies/mlapi-community-contributions.git?path=/Transports/com.mlapi.contrib.transport.photon-realtime",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "a1d21b52ce5a784b27a536a9e0ac74c9aa89996b"
+    },
     "com.unity.collab-proxy": {
       "version": "1.5.7",
       "depth": 0,

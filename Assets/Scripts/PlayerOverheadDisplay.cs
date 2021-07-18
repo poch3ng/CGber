@@ -13,7 +13,6 @@ namespace CGber
 
         private NetworkVariableString displayName = new NetworkVariableString();
 
-
         public override void NetworkStart()
         {
             if (!IsServer) { return; }

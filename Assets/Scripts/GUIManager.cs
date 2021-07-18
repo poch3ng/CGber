@@ -26,6 +26,25 @@ namespace CGber
             NetworkManager.Singleton.OnClientConnectedCallback += HandleClientConnected;
             NetworkManager.Singleton.OnClientDisconnectCallback += HandleClientDisconnect;
 
+            string[] args = System.Environment.GetCommandLineArgs();
+
+            for (int i = 0; i < args.Length; i++)
+            {
+                if (args[i] == "--server")
+                {
+                    _keyInputField.text = "0000";
+                    _nameInputField.text = "Host";
+                    Host();
+                }
+
+            }
+        }
+
+        private void Awake()
+        {
+
+
+
         }
 
         private void Update()
@@ -70,7 +89,7 @@ namespace CGber
             });
 
             byte[] playloadBytes = Encoding.ASCII.GetBytes(payload);
-
+            
             NetworkManager.Singleton.NetworkConfig.ConnectionData = playloadBytes;
             NetworkManager.Singleton.StartClient();
 
@@ -118,6 +137,7 @@ namespace CGber
             // Are we the client that is connecting?
             if (clientId == NetworkManager.Singleton.LocalClientId)
             {
+                Debug.Log("Client Connected");
                 _mainMenuGui.SetActive(false);
                 //_leaveButton.SetActive(true);
             }
@@ -155,7 +175,7 @@ namespace CGber
             {
                 return playerData;
             }
-
+            Debug.Log("there is nothing");
             return null;
         }
 
