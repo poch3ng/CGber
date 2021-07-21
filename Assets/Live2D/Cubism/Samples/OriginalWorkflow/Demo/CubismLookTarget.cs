@@ -8,10 +8,11 @@
 
 using Live2D.Cubism.Framework.LookAt;
 using UnityEngine;
+using MLAPI;
 
 namespace Live2D.Cubism.Samples.OriginalWorkflow.Demo
 {
-    public class CubismLookTarget : MonoBehaviour, ICubismLookTarget
+    public class CubismLookTarget : NetworkBehaviour, ICubismLookTarget
     {
         /// <summary>
         /// Get mouse coordinates while dragging.
@@ -19,10 +20,11 @@ namespace Live2D.Cubism.Samples.OriginalWorkflow.Demo
         /// <returns>Mouse coordinates.</returns>
         public Vector3 GetPosition()
         {
-            if (!Input.GetMouseButton(0))
+            /*if (!Input.GetMouseButton(0))
             {
                 return Vector3.zero;
-            }
+            }*/
+            if (!IsOwner) { return Vector3.zero;}
 
             var targetPosition = Input.mousePosition;
 

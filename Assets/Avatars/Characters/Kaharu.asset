@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 330d583442f146c41a6f2dd7ea564a70, type: 3}
+  m_Name: Kaharu
+  m_EditorClassIdentifier: 
+  characterName: Kaharu
+  characterPreviewPrefab: {fileID: 9097253016036441280, guid: 7ccdc58fb94647042842e5a8268b22bf, type: 3}
+  gameplayCharacterPrefab: {fileID: 7195897598433426932, guid: 594e62b71fda81e44ac88276f43a6921, type: 3}

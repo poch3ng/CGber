@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 330d583442f146c41a6f2dd7ea564a70, type: 3}
+  m_Name: Haruto
+  m_EditorClassIdentifier: 
+  characterName: Haruto
+  characterPreviewPrefab: {fileID: 4134092293242458841, guid: 99fddcdc4e08c60488ca93f7ae5a146f, type: 3}
+  gameplayCharacterPrefab: {fileID: 8370535237136330955, guid: fa7806d77d25b284190653f58c090a20, type: 3}

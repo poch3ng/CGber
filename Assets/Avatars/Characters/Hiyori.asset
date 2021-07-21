@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 330d583442f146c41a6f2dd7ea564a70, type: 3}
+  m_Name: Hiyori
+  m_EditorClassIdentifier: 
+  characterName: Hiyori
+  characterPreviewPrefab: {fileID: 308091212435389970, guid: b8a6f573de8b33f488adb4ee21cf97df, type: 3}
+  gameplayCharacterPrefab: {fileID: 3996169022977806294, guid: 8e72cbaeae101e347849d51b07499b77, type: 3}

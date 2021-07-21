@@ -8,9 +8,8 @@ using System.Text;
 
 namespace CGber
 {
-    public class GUIManager : MonoBehaviour
+    public class GUIManager : NetworkBehaviour
     {
-
         // InputField
         [SerializeField] private InputField _keyInputField;
         [SerializeField] private InputField _nameInputField;
@@ -40,13 +39,6 @@ namespace CGber
             }
         }
 
-        private void Awake()
-        {
-
-
-
-        }
-
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -54,7 +46,7 @@ namespace CGber
                 Debug.Log("esc");
                 _leaveButton.SetActive(!_leaveButton.activeSelf);
             }
-            
+
         }
 
         private void OnDestroy()
@@ -89,9 +81,11 @@ namespace CGber
             });
 
             byte[] playloadBytes = Encoding.ASCII.GetBytes(payload);
-            
+
             NetworkManager.Singleton.NetworkConfig.ConnectionData = playloadBytes;
             NetworkManager.Singleton.StartClient();
+
+
 
         }
 
@@ -129,11 +123,6 @@ namespace CGber
 
         private void HandleClientConnected(ulong clientId)
         {
-            if (NetworkManager.Singleton.IsServer)
-            {
-                _clientData.Remove(clientId);
-            }
-
             // Are we the client that is connecting?
             if (clientId == NetworkManager.Singleton.LocalClientId)
             {
@@ -145,6 +134,11 @@ namespace CGber
 
         private void HandleClientDisconnect(ulong clientId)
         {
+            if (NetworkManager.Singleton.IsServer)
+            {
+                _clientData.Remove(clientId);
+            }
+
             // Are we the client that is disconnecting?
             if (clientId == NetworkManager.Singleton.LocalClientId)
             {
