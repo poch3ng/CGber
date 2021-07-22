@@ -3056,6 +3056,10 @@ MonoBehaviour:
       PlayerPrefab: 0
     - Prefab: {fileID: 8370535237136330955, guid: fa7806d77d25b284190653f58c090a20, type: 3}
       PlayerPrefab: 0
+    - Prefab: {fileID: 7301071958473730231, guid: 9c7ad1413b1e0e341a2169b2c67f55ba, type: 3}
+      PlayerPrefab: 0
+    - Prefab: {fileID: 1700580782306813172, guid: 2581753cf5ab2ac4fa007b3a8c49c65f, type: 3}
+      PlayerPrefab: 0
     PlayerPrefabHash:
       id: 0
     CreatePlayerPrefab: 1
@@ -3405,6 +3409,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b8fee1d9db131e744a18fef3f7a78b4d, type: 2}
   - {fileID: 11400000, guid: b517bf6acabf05741b604d0c046d6c55, type: 2}
   - {fileID: 11400000, guid: 8abb2a9067e153f4186f55050f3c9cc1, type: 2}
+  - {fileID: 11400000, guid: 5931acd8aed5d624b9019f128f253cd5, type: 2}
+  - {fileID: 11400000, guid: ff56e6aaf71ca19468dc4e5ae36c0ad4, type: 2}
 --- !u!114 &2346274644369860744
 MonoBehaviour:
   m_ObjectHideFlags: 0

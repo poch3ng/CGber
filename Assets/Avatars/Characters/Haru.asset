@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 330d583442f146c41a6f2dd7ea564a70, type: 3}
+  m_Name: Haru
+  m_EditorClassIdentifier: 
+  characterName: Haru
+  characterPreviewPrefab: {fileID: 4181464466221313396, guid: e3269014c5cfda24a9c9e964d88a077c, type: 3}
+  gameplayCharacterPrefab: {fileID: 1700580782306813172, guid: 2581753cf5ab2ac4fa007b3a8c49c65f, type: 3}
