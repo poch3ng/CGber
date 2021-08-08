@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
 using MLAPI;
 using System.Text;
+using System.Linq;
 
 namespace CGber
 {
@@ -13,15 +13,14 @@ namespace CGber
         // InputField
         [SerializeField] private InputField _keyInputField;
         [SerializeField] private InputField _nameInputField;
+        [SerializeField] private InputField _passwordInputField;
 
         [SerializeField] private GameObject _mainMenuGui;
         [SerializeField] private GameObject _leaveButton;
 
-        //private static Dictionary<ulong, PlayerData> _clientData;
-
         private UserService userService = new UserService();
 
-        private static Dictionary<ulong, UserModel> _clientData;
+        private static IList<UserModel> _clientData;
 
         private void Start()
         {
@@ -68,21 +67,26 @@ namespace CGber
             Debug.Log("This is HOST");
 
             // init client data
-            _clientData = new Dictionary<ulong, UserModel>();
+            _clientData = new List<UserModel>();
 
             // get input field
             string userId = _nameInputField.text;
+            string userPassword = _passwordInputField.text;
 
             Debug.Log(userId);
+            Debug.Log(userPassword);
 
             // read user by user id
-            UserModel user = userService.ReadUserById(userId);
+            UserModel user = userService.ReadUserByIdAndPasswd(userId, userPassword);
 
             // if user not exist, return
             if (user == null) return;
 
+            // add cliet id to user
+            user.clientId = NetworkManager.Singleton.LocalClientId;
+
             // save user to client data
-            _clientData[NetworkManager.Singleton.LocalClientId] = user;
+            _clientData.Add(user);
 
             NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
             NetworkManager.Singleton.StartHost();
@@ -96,10 +100,11 @@ namespace CGber
             var payload = JsonUtility.ToJson(new ConnectionPayload()
             {
                 connectKey = _keyInputField.text,
-                playerName = _nameInputField.text
+                userId = _nameInputField.text,
+                userPassword = _passwordInputField.text,
             });
 
-            byte[] playloadBytes = Encoding.ASCII.GetBytes(payload);
+            byte[] playloadBytes = Encoding.UTF8.GetBytes(payload);
 
             NetworkManager.Singleton.NetworkConfig.ConnectionData = playloadBytes;
             NetworkManager.Singleton.StartClient();
@@ -152,7 +157,14 @@ namespace CGber
         {
             if (NetworkManager.Singleton.IsServer)
             {
-                _clientData.Remove(clientId);
+                // search user by client id
+                UserModel user = _clientData.Where(u => u.clientId == clientId).FirstOrDefault();
+
+                // if not found user, return
+                if (user == null) return;
+
+                // remove user from clientData
+                _clientData.Remove(user);
             }
 
             // Are we the client that is disconnecting?
@@ -166,25 +178,29 @@ namespace CGber
         private void ApprovalCheck(byte[] connectionData, ulong clientId, NetworkManager.ConnectionApprovedDelegate callback)
         {
             // process raw payload
-            string payload = Encoding.ASCII.GetString(connectionData);
+            string payload = Encoding.UTF8.GetString(connectionData);
             ConnectionPayload connectionPayload = JsonUtility.FromJson<ConnectionPayload>(payload);
 
             // read payload data
             string inpKey = connectionPayload.connectKey;
-            string userId = connectionPayload.playerName;
+            string userId = connectionPayload.userId;
+            string userPassword = connectionPayload.userPassword;
             string key = _keyInputField.text;
 
             // read user by user id
-            UserModel user = userService.ReadUserById(userId);
+            UserModel user = userService.ReadUserByIdAndPasswd(userId, userPassword);
 
             // check key equal to host key and user exist
             bool approveConnection = inpKey == key && user != null;
 
-
             // if successful authentication, save into client data
             if (approveConnection)
             {
-                _clientData[clientId] = user;
+                // add client id
+                user.clientId = clientId;
+
+                // add user to cliet data
+                _clientData.Add(user);
             }
 
             callback(true, null, approveConnection, null, null);
@@ -192,7 +208,7 @@ namespace CGber
 
         public static UserModel GetPlayerData(ulong clientId)
         {
-            return _clientData.TryGetValue(clientId, out UserModel user) ? user : null;
+            return _clientData.Where(u => u.clientId == clientId).FirstOrDefault();
         }
 
     }

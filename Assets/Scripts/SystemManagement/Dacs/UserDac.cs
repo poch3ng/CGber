@@ -10,18 +10,18 @@ namespace CGber
 {
     public class UserDac
     {
+        private Dac dac;
 
-        public static IList<UserModel> ReadUser()
+        public UserDac() 
         {
-            IList<UserModel> user = Dac.User();
-            return user;
+            dac = new Dac();
         }
 
-        public static UserModel ReadByUserId(string userId)
+        public UserModel ReadUserByIdAndPasswd(string userId, string userPassword)
         {
-            IList<UserModel> user = Dac.User();
+            IList<UserModel> user = dac.ReadUser();
 
-            return user.Where(u => u.userId == userId).FirstOrDefault();
+            return user.Where(u => u.userId == userId && u.userPassword == userPassword).FirstOrDefault();
         }
     }
 }

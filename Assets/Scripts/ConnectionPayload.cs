@@ -10,7 +10,8 @@ namespace CGber
     public class ConnectionPayload
     {
         public string connectKey;
-        public string playerName;
+        public string userId;
+        public string userPassword;
     }
 
 
