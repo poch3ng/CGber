@@ -14,6 +14,8 @@ namespace CGber
         [SerializeField] private TMP_Text characterNameText = default;
         [SerializeField] private Character[] characters = default;
 
+        [SerializeField] private GameObject bulletScreenDisplay = default;
+
         private int currentCharacterIndex = 0;
         private List<GameObject> characterInstances = new List<GameObject>();
 
@@ -42,6 +44,7 @@ namespace CGber
         {
             SpawnServerRpc(NetworkManager.Singleton.LocalClientId, currentCharacterIndex);
             characterSelectDisplay.SetActive(false);
+            bulletScreenDisplay.SetActive(true);
         }
 
         [ServerRpc(RequireOwnership = false)]
