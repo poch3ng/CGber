@@ -67,8 +67,9 @@ namespace CGber
 
             NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
             NetworkManager.Singleton.StartHost();
+            
         }
-
+        
 
 
         public void Client()
@@ -84,8 +85,6 @@ namespace CGber
 
             NetworkManager.Singleton.NetworkConfig.ConnectionData = playloadBytes;
             NetworkManager.Singleton.StartClient();
-
-
 
         }
 
@@ -160,6 +159,7 @@ namespace CGber
                 _clientData[clientId] = new PlayerData(connectionPayload.playerName);
             }
 
+            
             callback(true, null, approveConnection, null, null);
         }
 
