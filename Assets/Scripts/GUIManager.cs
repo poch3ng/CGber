@@ -17,7 +17,11 @@ namespace CGber
         [SerializeField] private GameObject _mainMenuGui;
         [SerializeField] private GameObject _leaveButton;
 
-        private static Dictionary<ulong, PlayerData> _clientData;
+        //private static Dictionary<ulong, PlayerData> _clientData;
+
+        private UserService userService = new UserService();
+
+        private static Dictionary<ulong, UserModel> _clientData;
 
         private void Start()
         {
@@ -62,14 +66,28 @@ namespace CGber
         public void Host()
         {
             Debug.Log("This is HOST");
-            _clientData = new Dictionary<ulong, PlayerData>();
-            _clientData[NetworkManager.Singleton.LocalClientId] = new PlayerData(_nameInputField.text);
+
+            // init client data
+            _clientData = new Dictionary<ulong, UserModel>();
+
+            // get input field
+            string userId = _nameInputField.text;
+
+            Debug.Log(userId);
+
+            // read user by user id
+            UserModel user = userService.ReadUserById(userId);
+
+            // if user not exist, return
+            if (user == null) return;
+
+            // save user to client data
+            _clientData[NetworkManager.Singleton.LocalClientId] = user;
 
             NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
             NetworkManager.Singleton.StartHost();
-            
         }
-        
+
 
 
         public void Client()
@@ -85,7 +103,6 @@ namespace CGber
 
             NetworkManager.Singleton.NetworkConfig.ConnectionData = playloadBytes;
             NetworkManager.Singleton.StartClient();
-
         }
 
         public void Leave()
@@ -148,29 +165,34 @@ namespace CGber
 
         private void ApprovalCheck(byte[] connectionData, ulong clientId, NetworkManager.ConnectionApprovedDelegate callback)
         {
-
+            // process raw payload
             string payload = Encoding.ASCII.GetString(connectionData);
-            var connectionPayload = JsonUtility.FromJson<ConnectionPayload>(payload);
+            ConnectionPayload connectionPayload = JsonUtility.FromJson<ConnectionPayload>(payload);
 
-            bool approveConnection = connectionPayload.connectKey == _keyInputField.text;
+            // read payload data
+            string inpKey = connectionPayload.connectKey;
+            string userId = connectionPayload.playerName;
+            string key = _keyInputField.text;
 
+            // read user by user id
+            UserModel user = userService.ReadUserById(userId);
+
+            // check key equal to host key and user exist
+            bool approveConnection = inpKey == key && user != null;
+
+
+            // if successful authentication, save into client data
             if (approveConnection)
             {
-                _clientData[clientId] = new PlayerData(connectionPayload.playerName);
+                _clientData[clientId] = user;
             }
 
-            
             callback(true, null, approveConnection, null, null);
         }
 
-        public static PlayerData? GetPlayerData(ulong clientId)
+        public static UserModel GetPlayerData(ulong clientId)
         {
-            if(_clientData.TryGetValue(clientId, out PlayerData playerData))
-            {
-                return playerData;
-            }
-            Debug.Log("there is nothing");
-            return null;
+            return _clientData.TryGetValue(clientId, out UserModel user) ? user : null;
         }
 
     }

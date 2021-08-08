@@ -8,7 +8,7 @@ namespace CGber
 {
     public class AvatarController : MonoBehaviour
     {
-        
+
         private float scaleValue = 0.0f;
         private float scaleChangeValue;
         private Vector3 scaleChange;

@@ -17,11 +17,13 @@ namespace CGber
         {
             if (!IsServer) { return; }
 
-            PlayerData? playerData = GUIManager.GetPlayerData(OwnerClientId);
+            UserModel user = GUIManager.GetPlayerData(OwnerClientId);
 
-            if (playerData.HasValue)
+            Debug.Log(user.userName);
+
+            if (user != null)
             {
-                displayName.Value = playerData.Value.PlayerName;
+                displayName.Value = user.userName;
             }
         }
 
