@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 using MLAPI;
+using MLAPI.Messaging;
 
 namespace CGber
 {
-    public class AvatarController : MonoBehaviour
+    public class AvatarController : NetworkBehaviour
     {
 
         private float scaleValue = 0.0f;
         private float scaleChangeValue;
         private Vector3 scaleChange;
+
 
         private Vector3 mOffset;
         private float mZCoord;
@@ -41,19 +42,23 @@ namespace CGber
 
         void OnMouseDrag()
         {
-            // if (!IsOwner) { return; }
+            if (!IsOwner) { return; }
+                
             transform.position = GetMouseAsWorldPoint() + mOffset;
         }
 
         public void OnMouseOver()
         {
-            // if (!IsOwner) { return; }
+            if (!IsOwner) { return; }
+
             scaleValue += Input.mouseScrollDelta.y * 0.1f;
 
             scaleChangeValue = 1.0f + scaleValue;
 
             scaleChange = new Vector3(scaleChangeValue, scaleChangeValue, 1.0f);
+
             transform.localScale = scaleChange;
+
         }
 
     }
