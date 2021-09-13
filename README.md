@@ -1,11 +1,11 @@
 # CGber
 
-## 1. How to create your own photon app server？
+### 1. How to create your own Photon app server？
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/0MibFFrzL7A/0.jpg)](https://www.youtube.com/watch?v=0MibFFrzL7A&list=PLTx03kbPigsVuBEpvTJpTW53V2yUA_lOp&index=6&t=198s)
 
 
-## 2. How to modify class members in CGber？
+### 2. How to modify class members in CGber？
 
 > ***Default student password is 123***
 
