@@ -3426,7 +3426,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_NickName: CGber
   m_RoomName: NTUT_CG
-  m_MaxPlayers: 33
+  m_MaxPlayers: 16
   m_ChannelIdCodesStartRange: 0
   m_AttachSupportLogger: 0
   m_BatchMode: 1

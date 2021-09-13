@@ -9,7 +9,7 @@
 
 > ***Default student password is 123***
 
-You can go to /Assets/Scripts/SystemManagement/Dacs/user_shadow.json to modify student info.
+You can go to /Assets/StreamingAssets/user_shadow.json to modify student info.
 
 ``` json
 

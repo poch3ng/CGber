@@ -13,7 +13,9 @@ namespace CGber
 
         public IList<UserModel> ReadUser()
         {
-            using (StreamReader r = new StreamReader("Assets/Scripts/SystemManagement/Dacs/user_shadow.json"))
+
+            // using (StreamReader r = new StreamReader("Assets/Scripts/SystemManagement/Dacs/user_shadow.json"))
+            using (StreamReader r = new StreamReader(Application.dataPath + "/StreamingAssets/user_shadow.json"))
             {
                 string json = r.ReadToEnd();
                 return JsonConvert.DeserializeObject<List<UserModel>>(json);
