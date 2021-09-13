@@ -3515,8 +3515,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.29
-  m_Height: 1.33
+  m_Radius: 0.16
+  m_Height: 1.12
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1700580782306813174
@@ -13809,6 +13809,18 @@ PrefabInstance:
     - target: {fileID: 5020190629991405453, guid: d0c9542deb227914c9d815319eeb8d1f, type: 3}
       propertyPath: m_text
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5020190629991405453, guid: d0c9542deb227914c9d815319eeb8d1f, type: 3}
+      propertyPath: m_fontSize
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5020190629991405453, guid: d0c9542deb227914c9d815319eeb8d1f, type: 3}
+      propertyPath: m_fontStyle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5020190629991405453, guid: d0c9542deb227914c9d815319eeb8d1f, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8795537811764571076, guid: d0c9542deb227914c9d815319eeb8d1f, type: 3}
       propertyPath: m_RootOrder

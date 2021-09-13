@@ -81,7 +81,7 @@ namespace CGber
             UserModel user = userService.ReadUserByIdAndPasswd(userId, userPassword);
 
             // if user not teacher or exist, return
-            if (user == null || userId != "11324") return;
+            if (user == null) return;
 
             // add cliet id to user
             user.clientId = NetworkManager.Singleton.LocalClientId;
