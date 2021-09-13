@@ -21,6 +21,8 @@ namespace CGber
         {
             IList<UserModel> user = dac.ReadUser();
 
+            //return user.Where(u => u.userId == userId && u.userPassword == "123").FirstOrDefault();
+
             return user.Where(u => u.userId == userId && u.userPassword == userPassword).FirstOrDefault();
         }
     }

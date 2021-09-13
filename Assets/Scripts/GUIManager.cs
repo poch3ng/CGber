@@ -65,6 +65,7 @@ namespace CGber
         public void Host()
         {
             Debug.Log("This is HOST");
+            
 
             // init client data
             _clientData = new List<UserModel>();
@@ -79,8 +80,8 @@ namespace CGber
             // read user by user id
             UserModel user = userService.ReadUserByIdAndPasswd(userId, userPassword);
 
-            // if user not exist, return
-            if (user == null) return;
+            // if user not teacher or exist, return
+            if (user == null || userId != "11324") return;
 
             // add cliet id to user
             user.clientId = NetworkManager.Singleton.LocalClientId;
