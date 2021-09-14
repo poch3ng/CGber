@@ -13,6 +13,7 @@ namespace CGber
         [SerializeField] private NetworkObject X; //Answer  false 
 
         private Animator m_animator;
+        private bool _isAnswer = false;
 
         // Start is called before the first frame update
         void Start()
@@ -30,7 +31,7 @@ namespace CGber
         {
             if (!IsOwner) { return; }
 
-            if (Input.GetKeyDown(KeyCode.O))
+            if (Input.GetKeyDown(KeyCode.O) && !_isAnswer)
             {
                 // Network Animator motion
                 if (m_animator != null)
@@ -41,9 +42,10 @@ namespace CGber
                 Vector3 spawnPos = AnswerPos.transform.position;
 
                 SpawnAnswereServerRpc('O', spawnPos);
+                _isAnswer = true;
             }
 
-            if (Input.GetKeyDown(KeyCode.X))
+            if (Input.GetKeyDown(KeyCode.X) && !_isAnswer)
             {
                 if (m_animator != null)
                 {
@@ -53,6 +55,7 @@ namespace CGber
                 Vector3 spawnPos = AnswerPos.transform.position;
 
                 SpawnAnswereServerRpc('X', spawnPos);
+                _isAnswer = true;
             }
 
             if (Input.GetKeyDown(KeyCode.Space))
@@ -61,6 +64,7 @@ namespace CGber
                 {
                     m_animator.SetInteger("motion", 0);
                 }
+                _isAnswer = false;
             }
         }
 
@@ -71,10 +75,12 @@ namespace CGber
             {
                 case 'O':
                     NetworkObject CorrectAnswerInstance = Instantiate(O, spawnPos, Quaternion.identity);
+                    CorrectAnswerInstance.transform.parent = AnswerPos.transform;
                     CorrectAnswerInstance.SpawnWithOwnership(OwnerClientId);
                     break;
                 case 'X':
                     NetworkObject WrongAnswerInstance = Instantiate(X, spawnPos, Quaternion.identity);
+                    WrongAnswerInstance.transform.parent = AnswerPos.transform;
                     WrongAnswerInstance.SpawnWithOwnership(OwnerClientId);
                     break;
                 default:

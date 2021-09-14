@@ -16,6 +16,7 @@ namespace CGber
         [SerializeField] private InputField _passwordInputField;
 
         [SerializeField] private GameObject _mainMenuGui;
+        [SerializeField] private GameObject _bulletScreenGui;
         [SerializeField] private GameObject _leaveButton;
 
         private UserService userService = new UserService();
@@ -130,6 +131,7 @@ namespace CGber
             }
 
             _mainMenuGui.SetActive(true);
+            _bulletScreenGui.SetActive(false);
             _leaveButton.SetActive(false);
 
         }
